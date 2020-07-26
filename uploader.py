@@ -21,6 +21,7 @@ from googleapiclient.http import MediaFileUpload
 
 scopes = ["https://www.googleapis.com/auth/youtube.upload"]
 
+
 def main():
     # Disable OAuthlib's HTTPS verification when running locally.
     # *DO NOT* leave this option enabled in production.
@@ -28,7 +29,7 @@ def main():
 
     api_service_name = "youtube"
     api_version = "v3"
-    client_secrets_file = "YOUR_CLIENT_SECRET_FILE.json"
+    client_secrets_file = "client_secret.json"
 
     # Get credentials and create an API client
     flow = google_auth_oauthlib.flow.InstalledAppFlow.from_client_secrets_file(
@@ -40,23 +41,24 @@ def main():
     request = youtube.videos().insert(
         part="snippet,status",
         body={
-          "snippet": {
-            "categoryId": "22",
-            "description": "Description of uploaded video.",
-            "title": "Test video upload."
-          },
-          "status": {
-            "privacyStatus": "private"
-          }
+            "snippet": {
+                "categoryId": "22",
+                "description": "Description of uploaded video.",
+                "title": "Test video upload."
+            },
+            "status": {
+                "privacyStatus": "private"
+            }
         },
-        
+
         # TODO: For this request to work, you must replace "YOUR_FILE"
         #       with a pointer to the actual file you are uploading.
-        media_body=MediaFileUpload("YOUR_FILE")
+        media_body=MediaFileUpload("test.mp4")
     )
     response = request.execute()
 
     print(response)
+
 
 if __name__ == "__main__":
     main()
