@@ -47,7 +47,7 @@ def main():
                 "title": "Test video upload."
             },
             "status": {
-                "privacyStatus": "private"
+                "privacyStatus": "unlisted"
             }
         },
 
