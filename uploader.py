@@ -38,6 +38,7 @@ def main():
     youtube = googleapiclient.discovery.build(
         api_service_name, api_version, credentials=credentials)
 
+    response = None
     request = youtube.videos().insert(
         part="snippet,status",
         body={
@@ -53,11 +54,15 @@ def main():
 
         # TODO: For this request to work, you must replace "YOUR_FILE"
         #       with a pointer to the actual file you are uploading.
-        media_body=MediaFileUpload("test.mp4")
+        media_body=MediaFileUpload("test.mp4", resumable=True)
     )
-    response = request.execute()
 
-    print(response)
+    while response is None:
+        status, response = request.next_chunk()
+        if status:
+            print('Uploaded %d%%' % int(status.progress() * 100))
+    
+    print('Upload complete')
 
 
 if __name__ == "__main__":
