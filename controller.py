@@ -3,11 +3,9 @@ from flask import Flask, flash, request, redirect, url_for
 from flask import send_from_directory
 from werkzeug.utils import secure_filename
 
-UPLOAD_FOLDER = '/home/cjdellomes/youtube-uploader/videos'
-ALLOWED_EXTENSIONS = {'mp4'}
-
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, 'videos')
+ALLOWED_EXTENSIONS = {'mp4'}
 
 def is_allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS

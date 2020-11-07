@@ -2,7 +2,7 @@ import os
 import subprocess
 import glob
 
-VIDEO_FOLDER = '/home/cjdellomes/youtube-uploader/videos'
+VIDEO_FOLDER = os.path.join(os.path.dirname(__file__), '/videos')
 INPUT_FILE = 'test-original.mp4'
 
 def cut(input_file_path, output_file_path, start_time, end_time):
