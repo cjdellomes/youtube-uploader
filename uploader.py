@@ -23,6 +23,7 @@ API_SERVICE_SCOPES = ["https://www.googleapis.com/auth/youtube.upload"]
 API_SERVICE_NAME = "youtube"
 API_VERSION = "v3"
 CLIENT_SECRETS_FILE = "client_secret.json"
+VIDEO_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'videos')
 FILE = "test.mp4"
 
 def get_credentials(client_secrets_file, scopes):
@@ -76,10 +77,11 @@ def main():
     # *DO NOT* leave this option enabled in production.
     os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
+    file_path = os.path.join(VIDEO_FOLDER, FILE)
     credentials = get_credentials(CLIENT_SECRETS_FILE, API_SERVICE_SCOPES)
     api_client = googleapiclient.discovery.build(
         API_SERVICE_NAME, API_VERSION, credentials=credentials)
-    request = get_youtube_video_insert_request(api_client, FILE, "Automated file upload", FILE)
+    request = get_youtube_video_insert_request(api_client, file_path, "Automated file upload", FILE)
     upload(request)
 
 if __name__ == "__main__":
