@@ -1,3 +1,4 @@
+<script src="{{url_for('static', filename='keys.js')}}"></script>
 <script src="https://apis.google.com/js/api.js"></script>
 <script>
   /**
@@ -19,7 +20,7 @@
         );
   }
   function loadClient() {
-    gapi.client.setApiKey("AIzaSyB56gpIfVKEJSDQPGA6ZgU3kOgXT6ISAiU");
+    gapi.client.setApiKey(keys.api_key);
     return gapi.client.load("https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest")
         .then(function() { console.log("GAPI client loaded for API"); },
               function(err) { console.error("Error loading GAPI client for API", err); });
@@ -29,7 +30,7 @@
       console.log(gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse());
   }
   gapi.load("client:auth2", function() {
-    gapi.auth2.init({client_id: "1075751505142-f7rhias1taekdhlenibneksamu4vrldu.apps.googleusercontent.com"});
+    gapi.auth2.init({client_id: keys.client_id});
   });
 </script>
 

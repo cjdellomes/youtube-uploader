@@ -1,6 +1,6 @@
 import os
 from flask import Flask, flash, request, redirect, url_for
-from flask import send_from_directory
+from flask import send_from_directory, render_template
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
@@ -13,7 +13,7 @@ def is_allowed_file(filename):
 @app.route('/', methods=['GET', 'POST'])
 def upload():
     if request.method != 'POST':
-        return send_from_directory('/home/cjdellomes/youtube-uploader', 'example.html')
+        return render_template('example.html')
 
     if 'file' not in request.files:
         flash('No file part')

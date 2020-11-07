@@ -3,3 +3,4 @@ videos/
 env/
 .vscode/
 __pycache__/
+keys.js
