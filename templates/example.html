@@ -27,7 +27,12 @@
   }
   // Make sure the client is loaded and sign-in is complete before calling this method.
   function execute() {
-      console.log(gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse());
+      const auth_response = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse();
+      const access_token = auth_response.access_token
+      const id_token = auth_response.id_token
+
+      document.getElementById("access_token").value = access_token;
+      document.getElementById("id_token").value = id_token;
   }
   gapi.load("client:auth2", function() {
     gapi.auth2.init({client_id: keys.client_id});
@@ -38,6 +43,8 @@
 <title>Upload new File</title>
 <h1>Upload new File</h1>
 <form method=post enctype=multipart/form-data>
+    <input type="text" name=access_token id="access_token" hidden>
+    <input type="text" name=id_token id="id_token" hidden>
     <input type=file name=file>
     <input type=submit value=Upload>
 </form>
